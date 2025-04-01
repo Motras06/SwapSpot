@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SwapSpot</string>
+    <string name="username_hint">Имя пользователя</string>
+    <string name="password_hint">Пароль</string>
+    <string name="profile_description">profile_description</string>
+    <string name="basket_description">basket_description</string>
+    <string name="favorite_description">favorite_description</string>
+    <string name="home_description">home_description</string>
+    <string name="arrow_description" />
+    <string name="add">Добавить</string>
+    <string name="item_name">Название</string>
+    <string name="adress">адресс</string>
+    <string name="discription">описание</string>
+    <string name="delete">Удалить</string>
+    <string name="add_image">Добавить изображение</string>
+    <string name="delete_text">Нажмите на товар чтобы удалить</string>
+</resources>

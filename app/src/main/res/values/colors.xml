@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_auth">#D963773F</color>
+    <color name="green_1">#CADECA</color>
+    <color name="green_2">#97A77A</color>
+    <color name="green_3">#63773F</color>
+    <color name="statusBarColor">#63773F</color>
+</resources>

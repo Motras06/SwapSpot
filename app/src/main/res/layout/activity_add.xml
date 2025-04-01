@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_2"
+    tools:context=".AddActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_panel"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="631dp"
+        android:background="@drawable/baaaaaaar"
+        android:elevation="15dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/turn_back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/arrow_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.473"
+            app:srcCompat="@drawable/arrow_left_fill"
+            android:onClick="onTurnBackButtonClick"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@color/green_2">
+
+        <EditText
+            android:id="@+id/editText1"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/item_name"
+            android:textColorHint="@color/green_1"
+            android:inputType="text"
+            android:padding="13dp"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/editText2"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/adress"
+            android:textColorHint="@color/green_1"
+            android:inputType="text"
+            android:padding="13dp"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/discription"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/green_1"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:maxLines="3"
+            android:gravity="top"
+            android:padding="13dp"
+            android:scrollbars="vertical"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/button_add_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_image"
+            android:backgroundTint="@color/green_3"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/merriweather_light"/>
+
+        <ImageView
+            android:id="@+id/image_current"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/add"
+            android:backgroundTint="@color/green_3"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/merriweather_light"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
