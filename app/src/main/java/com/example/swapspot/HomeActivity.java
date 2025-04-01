@@ -43,7 +43,12 @@ public class HomeActivity extends AppCompatActivity {
         // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {}
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Echange selectedItem = echanges.get(position);
+                Intent intent = new Intent(HomeActivity.this, ThisItemActivity.class);
+                intent.putExtra("ITEM_ID", selectedItem.getId()); // Передача ID
+                startActivity(intent);
+            }
         };
         gridView.setOnItemClickListener(itemListener);
     }

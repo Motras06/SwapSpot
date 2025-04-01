@@ -2,11 +2,84 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_2"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileActivity"
+    android:background="@color/green_2">
+
+    <!-- Блок отображения текущего пользователя -->
+    <TextView
+        android:padding="16dp"
+        android:id="@+id/currentUserLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Текущий пользователь:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:padding="16dp"
+        android:id="@+id/currentUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя пользователя"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/currentUserLabel"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Рамка для изменения данных -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editUserFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/currentUserName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/editUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Новое имя пользователя"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_bg"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/editUserPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Новый пароль"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text_bg"
+            android:textSize="16sp"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/editUserName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/saveUserChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сохранить изменения"
+            android:backgroundTint="@color/green_2"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/editUserPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_panel"
