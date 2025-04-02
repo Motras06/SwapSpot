@@ -23,7 +23,7 @@ public class AddActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
     private CurentUserDatabase userDatabase;
     private ImageView imageView;
-    private EditText editTextName, editTextAddress, editTextDescription;
+    private EditText editTextName, editTextAddress, editTextDescription, editTextPhoneNumber;
     private String currentUser;
 
     @Override
@@ -52,6 +52,7 @@ public class AddActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editText1);
         editTextAddress = findViewById(R.id.editText2);
         editTextDescription = findViewById(R.id.editText3);
+        editTextPhoneNumber = findViewById(R.id.editTextPhone); // Новое поле для номера телефона
         imageView = findViewById(R.id.image_current); // Добавьте в XML `ImageView`
         Button buttonAddImage = findViewById(R.id.button_add_image);
         Button buttonAddItem = findViewById(R.id.buttonLogin);
@@ -87,16 +88,17 @@ public class AddActivity extends AppCompatActivity {
         String itemName = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
+        String phoneNumber = editTextPhoneNumber.getText().toString().trim(); // Получаем номер телефона
         Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap(); // Получаем изображение
 
         // Проверка на пустые поля
-        if (itemName.isEmpty() || address.isEmpty() || description.isEmpty() || image == null) {
+        if (itemName.isEmpty() || address.isEmpty() || description.isEmpty() || phoneNumber.isEmpty() || image == null) {
             Toast.makeText(this, "Заполните все поля и добавьте изображение!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Добавляем данные в БД
-        boolean isInserted = databaseHelper.addItem(itemName, currentUser, address, description, image);
+        boolean isInserted = databaseHelper.addItem(itemName, currentUser, phoneNumber, address, description, image);
         if (isInserted) {
             Toast.makeText(this, "Товар добавлен!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AddActivity.this, MyExchange.class);

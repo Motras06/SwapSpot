@@ -16,12 +16,13 @@ import java.io.IOException;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "BaseOfService.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_ITEMS = "items";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_ITEM_NAME = "item_name";
     private static final String COLUMN_USER_NAME = "user_name";
+    private static final String COLUMN_PHONE_NUMBER = "phone_number";
     private static final String COLUMN_ADDRESS = "address";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_IMAGE_PATH = "image_path";
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_ITEM_NAME + " TEXT NOT NULL, "
                 + COLUMN_USER_NAME + " TEXT NOT NULL, "
+                + COLUMN_PHONE_NUMBER + " TEXT NOT NULL, "
                 + COLUMN_ADDRESS + " TEXT NOT NULL, "
                 + COLUMN_DESCRIPTION + " TEXT NOT NULL, "
                 + COLUMN_IMAGE_PATH + " TEXT);";
@@ -47,11 +49,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + TABLE_ITEMS + " ADD COLUMN " + COLUMN_PHONE_NUMBER + " TEXT NOT NULL DEFAULT '';");
+        }
     }
 
-    public boolean addItem(String itemName, String userName, String address, String description, Bitmap image) {
+    public boolean addItem(String itemName, String userName, String phoneNumber, String address, String description, Bitmap image) {
         SQLiteDatabase db = null;
         long result = -1;
         String imagePath = saveImageToStorage(image, itemName);
@@ -61,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COLUMN_ITEM_NAME, itemName);
             values.put(COLUMN_USER_NAME, userName);
+            values.put(COLUMN_PHONE_NUMBER, phoneNumber);
             values.put(COLUMN_ADDRESS, address);
             values.put(COLUMN_DESCRIPTION, description);
             values.put(COLUMN_IMAGE_PATH, imagePath);
@@ -137,5 +141,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0; // Возвращаем true, если удаление прошло успешно
     }
-
 }
