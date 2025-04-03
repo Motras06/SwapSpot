@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,7 +83,13 @@ public class MyExchange extends AppCompatActivity {
         }
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM items WHERE user_name = ?", new String[]{currentUser});
+        Cursor cursor;
+
+        if ("admin".equals(currentUser)) {
+            cursor = db.rawQuery("SELECT * FROM items", null);
+        } else {
+            cursor = db.rawQuery("SELECT * FROM items WHERE user_name = ?", new String[]{currentUser});
+        }
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -102,8 +107,6 @@ public class MyExchange extends AppCompatActivity {
         dbHelper.close();
         userDbHelper.close();
     }
-
-
 
     public void onAddButtonClick(View view) {
         Intent intent = new Intent(MyExchange.this, AddActivity.class);

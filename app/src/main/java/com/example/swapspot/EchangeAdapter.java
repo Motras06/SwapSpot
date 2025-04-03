@@ -29,23 +29,21 @@ public class EchangeAdapter extends ArrayAdapter<Echange> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        if (convertView == null) {  // Если convertView ещё не создан, создаём его
+        if (convertView == null) {
             convertView = inflater.inflate(this.layout, parent, false);
             holder = new ViewHolder();
             holder.itemImageView = convertView.findViewById(R.id.item_image);
             holder.nameView = convertView.findViewById(R.id.item_name);
             holder.usernamePostView = convertView.findViewById(R.id.item_name_publishing);
-            convertView.setTag(holder); // Сохраняем ViewHolder в convertView
+            convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag(); // Получаем сохранённый ViewHolder
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        // Устанавливаем данные в элементы списка
         Echange echange = echanges.get(position);
-        // Загружаем изображение с локального пути, используя Glide
         Glide.with(getContext())
-                .load(new File(echange.getImagePath())) // Путь к изображению
-                .placeholder(R.drawable.home) // Заставка, если изображение не найдено
+                .load(new File(echange.getImagePath()))
+                .placeholder(R.drawable.home)
                 .into(holder.itemImageView);
 
         holder.nameView.setText(echange.getItemName());
@@ -54,7 +52,6 @@ public class EchangeAdapter extends ArrayAdapter<Echange> {
         return convertView;
     }
 
-    // Вспомогательный класс для ViewHolder
     private static class ViewHolder {
         ImageView itemImageView;
         TextView nameView;

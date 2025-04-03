@@ -1,7 +1,7 @@
 package com.example.swapspot;
 
 public class Echange {
-    private int id; // Добавляем ID
+    private int id;
     private String itemName;
     private String userName;
     private String imagePath;

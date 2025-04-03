@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ThisItemActivity extends AppCompatActivity {
     private ImageView itemImage;
-    private TextView itemName, itemUserName, itemAddress, itemDescription, itemPhoneNumber; // Добавляем поле для телефона
+    private TextView itemName, itemUserName, itemAddress, itemDescription, itemPhoneNumber;
     private DatabaseHelper dbHelper;
 
     @Override
@@ -35,7 +35,7 @@ public class ThisItemActivity extends AppCompatActivity {
         itemUserName = findViewById(R.id.item_user_name);
         itemAddress = findViewById(R.id.item_address);
         itemDescription = findViewById(R.id.item_description);
-        itemPhoneNumber = findViewById(R.id.item_phone_number); // Инициализируем поле для телефона
+        itemPhoneNumber = findViewById(R.id.item_phone_number);
         dbHelper = new DatabaseHelper(this);
 
         Intent intent = getIntent();
@@ -59,13 +59,13 @@ public class ThisItemActivity extends AppCompatActivity {
             String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
             String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
             String imagePath = cursor.getString(cursor.getColumnIndexOrThrow("image_path"));
-            String phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("phone_number")); // Получаем номер телефона
+            String phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("phone_number"));
 
             itemName.setText(name);
             itemUserName.setText("Пользователь: " + userName);
             itemAddress.setText("Адрес: " + address);
             itemDescription.setText(description);
-            itemPhoneNumber.setText("Телефон: " + phoneNumber); // Устанавливаем номер телефона
+            itemPhoneNumber.setText("Телефон: " + phoneNumber);
 
             if (imagePath != null) {
                 Bitmap bitmap = BitmapFactory.decodeFile(imagePath);

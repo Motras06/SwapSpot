@@ -25,21 +25,17 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Инициализация баз данных
         currentUserDb = new CurentUserDatabase(this);
         userDbHelper = new DatabaseUserHelper(this);
         databaseHelper = new DatabaseHelper(this);
 
-        // Привязка элементов UI
         currentUserName = findViewById(R.id.currentUserName);
         editUserName = findViewById(R.id.editUserName);
         editUserPassword = findViewById(R.id.editUserPassword);
         saveUserChanges = findViewById(R.id.saveUserChanges);
 
-        // Загрузка текущего пользователя
         loadCurrentUser();
 
-        // Обработчик кнопки сохранения изменений
         saveUserChanges.setOnClickListener(v -> updateUser());
     }
 
@@ -61,17 +57,14 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        // Получаем текущего пользователя
         String oldUsername = currentUserDb.getCurrentUser();
         if (oldUsername == null) {
             Toast.makeText(this, "Ошибка: текущий пользователь не найден", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Удаляем старого пользователя и добавляем нового в CurrentUserDatabase
         currentUserDb.addUser(newUsername, newPassword);
 
-        // Обновляем данные в DatabaseUserHelper
         if (userDbHelper.isUserExists(oldUsername)) {
             SQLiteDatabase db = userDbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -80,11 +73,9 @@ public class ProfileActivity extends AppCompatActivity {
             db.update("users", values, "username=?", new String[]{oldUsername});
             db.close();
         } else {
-            // Если пользователь не найден в основной БД, просто регистрируем его
             userDbHelper.registerUser(newUsername, newPassword);
         }
 
-        // Обновляем все элементы в таблице items, принадлежащие пользователю
         SQLiteDatabase dbItems = databaseHelper.getWritableDatabase();
         ContentValues itemValues = new ContentValues();
         itemValues.put("user_name", newUsername);

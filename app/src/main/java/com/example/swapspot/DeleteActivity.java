@@ -45,21 +45,13 @@ public class DeleteActivity extends AppCompatActivity {
         echangeAdapter = new EchangeAdapter(this, R.layout.list_item, echanges);
         gridView.setAdapter(echangeAdapter);
 
-        // Удаление при клике
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                // Получаем выбранный объект
                 Echange selectedItem = echanges.get(position);
-
-                // Здесь должен быть ID из БД, но у тебя его нет в классе Echange.
-                // Нужно сначала достать его из БД, если ты его там хранишь.
-
-                // Удаляем товар из базы данных (если у тебя в Echange нет ID, нужно его добавить)
                 boolean deleted = dbHelper.deleteItem(selectedItem.getId());
 
                 if (deleted) {
-                    // Удаляем из списка и обновляем адаптер
                     echanges.remove(position);
                     echangeAdapter.notifyDataSetChanged();
                     Toast.makeText(DeleteActivity.this, "Товар удален", Toast.LENGTH_SHORT).show();
@@ -68,7 +60,6 @@ public class DeleteActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void setInitialData() {
@@ -82,16 +73,22 @@ public class DeleteActivity extends AppCompatActivity {
         }
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM items WHERE user_name = ?", new String[]{currentUser});
+        Cursor cursor;
+
+        if ("admin".equals(currentUser)) {
+            cursor = db.rawQuery("SELECT * FROM items", null);
+        } else {
+            cursor = db.rawQuery("SELECT * FROM items WHERE user_name = ?", new String[]{currentUser});
+        }
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id")); // Получаем ID
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
                 String itemName = cursor.getString(cursor.getColumnIndexOrThrow("item_name"));
                 String userName = cursor.getString(cursor.getColumnIndexOrThrow("user_name"));
                 String imagePath = cursor.getString(cursor.getColumnIndexOrThrow("image_path"));
 
-                echanges.add(new Echange(id, itemName, userName, imagePath)); // Передаём ID в объект
+                echanges.add(new Echange(id, itemName, userName, imagePath));
             } while (cursor.moveToNext());
             cursor.close();
         }

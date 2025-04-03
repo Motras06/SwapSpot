@@ -36,35 +36,29 @@ public class AddActivity extends AppCompatActivity {
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
-        // Инициализация базы данных
         databaseHelper = new DatabaseHelper(this);
         userDatabase = new CurentUserDatabase(this);
 
-        // Получение текущего пользователя
         currentUser = userDatabase.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "Ошибка: пользователь не найден", Toast.LENGTH_SHORT).show();
-            finish(); // Закрываем активность, если пользователь не найден
+            finish();
             return;
         }
 
-        // Найти элементы интерфейса
         editTextName = findViewById(R.id.editText1);
         editTextAddress = findViewById(R.id.editText2);
         editTextDescription = findViewById(R.id.editText3);
-        editTextPhoneNumber = findViewById(R.id.editTextPhone); // Новое поле для номера телефона
-        imageView = findViewById(R.id.image_current); // Добавьте в XML `ImageView`
+        editTextPhoneNumber = findViewById(R.id.editTextPhone);
+        imageView = findViewById(R.id.image_current);
         Button buttonAddImage = findViewById(R.id.button_add_image);
         Button buttonAddItem = findViewById(R.id.buttonLogin);
 
-        // Кнопка добавления изображения
         buttonAddImage.setOnClickListener(v -> openGallery());
 
-        // Кнопка добавления товара
         buttonAddItem.setOnClickListener(v -> addItemToDatabase());
     }
 
-    // Открываем галерею для выбора изображения
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -83,7 +77,6 @@ public class AddActivity extends AppCompatActivity {
         }
     }
 
-    // Добавление товара в БД
     private void addItemToDatabase() {
         String itemName = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
@@ -91,20 +84,18 @@ public class AddActivity extends AppCompatActivity {
         String phoneNumber = editTextPhoneNumber.getText().toString().trim(); // Получаем номер телефона
         Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap(); // Получаем изображение
 
-        // Проверка на пустые поля
         if (itemName.isEmpty() || address.isEmpty() || description.isEmpty() || phoneNumber.isEmpty() || image == null) {
             Toast.makeText(this, "Заполните все поля и добавьте изображение!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Добавляем данные в БД
         boolean isInserted = databaseHelper.addItem(itemName, currentUser, phoneNumber, address, description, image);
         if (isInserted) {
             Toast.makeText(this, "Товар добавлен!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AddActivity.this, MyExchange.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
-            finish(); // Закрываем активность
+            finish();
         } else {
             Toast.makeText(this, "Ошибка при добавлении товара", Toast.LENGTH_SHORT).show();
         }

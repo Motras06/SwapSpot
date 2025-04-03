@@ -53,7 +53,6 @@ public class SettingsActivity extends AppCompatActivity {
         db.delete("users", null, null);
         db.close();
 
-        // Переход на экран входа
         Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -64,7 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         String currentUser = curentUserDatabase.getCurrentUser();
         if (currentUser != null) {
             SQLiteDatabase dbUsers = databaseUserHelper.getWritableDatabase();
-            dbUsers.delete("users", "username = ?", new String[]{currentUser}); // Удаляем пользователя из БД
+            dbUsers.delete("users", "username = ?", new String[]{currentUser});
             dbUsers.close();
 
             logoutUser();

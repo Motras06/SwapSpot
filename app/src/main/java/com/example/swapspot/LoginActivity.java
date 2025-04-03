@@ -27,11 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         Button buttonLogin = findViewById(R.id.buttonLogin);
         Button buttonRegister = findViewById(R.id.buttonRegister);
 
-        // Проверяем путь к базе данных (для отладки)
         String dbPath = getDatabasePath("BaseOfUsers.db").getAbsolutePath();
-//        Toast.makeText(this, "Database Path: " + dbPath, Toast.LENGTH_LONG).show();
 
-        // Обработчик нажатия кнопки входа
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (databaseHelper.loginUser(username, password)) {
                     Toast.makeText(LoginActivity.this, "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
                     curentUserDatabase.addUser(username, password);
-                    // Открываем новый экран после успешного входа
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -56,32 +52,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Обработчик нажатия кнопки регистрации
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Получаем данные из полей ввода
                 String username = editTextUsername.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                // Проверяем, что оба поля не пустые
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Пожалуйста, введите имя пользователя и пароль", Toast.LENGTH_SHORT).show();
-                    return; // Прерываем выполнение, если данные не введены
+                    return;
                 }
 
-                // Пытаемся зарегистрировать нового пользователя в базе данных
                 boolean isRegistered = databaseHelper.registerUser(username, password);
 
                 if (isRegistered) {
-                    // Если регистрация прошла успешно, выводим сообщение и переходим на новый экран
                     curentUserDatabase.addUser(username, password);
                     Toast.makeText(LoginActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
-                    finish(); // Закрываем текущую активность, чтобы пользователь не мог вернуться
+                    finish();
                 } else {
-                    // Если регистрация не удалась (например, пользователь с таким именем уже существует)
                     Toast.makeText(LoginActivity.this, "Ошибка регистрации! Пользователь с таким именем уже существует.", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -117,28 +117,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean deleteItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Получаем путь к изображению перед удалением
         Cursor cursor = db.query(TABLE_ITEMS, new String[]{COLUMN_IMAGE_PATH}, COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)}, null, null, null);
 
         String imagePath = null;
         if (cursor != null && cursor.moveToFirst()) {
             imagePath = cursor.getString(0);
-            cursor.close(); // Закрываем курсор после использования
+            cursor.close();
         }
 
-        // Удаляем элемент из базы данных
         int result = db.delete(TABLE_ITEMS, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
 
-        // Если элемент успешно удалён, удаляем изображение
         if (result > 0 && imagePath != null) {
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
-                imageFile.delete(); // Физически удаляем изображение с устройства
+                imageFile.delete();
             }
         }
 
-        return result > 0; // Возвращаем true, если удаление прошло успешно
+        return result > 0;
     }
 }

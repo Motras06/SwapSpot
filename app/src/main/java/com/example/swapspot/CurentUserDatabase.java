@@ -37,7 +37,6 @@ public class CurentUserDatabase extends SQLiteOpenHelper {
     public boolean addUser(String name, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Удаляем всех пользователей перед добавлением нового
         db.delete(TABLE_USERS, null, null);
 
         ContentValues values = new ContentValues();

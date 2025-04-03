@@ -34,13 +34,9 @@ public class HomeActivity extends AppCompatActivity {
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         setInitialData();
-        // получаем элемент ListView
         GridView gridView = findViewById(R.id.countriesGrid);
-        // создаем адаптер
         EchangeAdapter echangeAdapter = new EchangeAdapter(this, R.layout.list_item, echanges);
-        // устанавливаем адаптер
         gridView.setAdapter(echangeAdapter);
-        // слушатель выбора в списке
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
